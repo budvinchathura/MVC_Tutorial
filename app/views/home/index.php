@@ -1,5 +1,5 @@
+<?php $this->setSiteTitle('home title')?>
 <?php $this->start('head'); ?>
-<title> Kamu Home </title>
 <?php $this->end(); ?>
 <?php $this->start('body'); ?>
 <!-- <h1> Welcome to my mvc php framework - home </h1> -->
