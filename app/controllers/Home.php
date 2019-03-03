@@ -6,7 +6,7 @@ class Home extends Controller{
         parent::__construct($controller,$action);
     }
 
-    public function indexAction($name)
+    public function indexAction($name=null)
     {
         // die('Welcome to home controller, this is the indexAction');
         echo 'hello!!'.$name;
