@@ -38,7 +38,7 @@ class DB
                     $x++;
                 }
             }
-            
+
 
             if ($this->_query->execute()) {
                 $this->_result = $this->_query->fetchALL(PDO::FETCH_OBJ);
@@ -67,16 +67,45 @@ class DB
         $valueString = rtrim($valueString, ',');
 
         $sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
-    
-        if(!$this->query($sql,$values)->error()){
+
+        if (!$this->query($sql, $values)->error()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function error(){
+    public function update($table, $id, $fields = [])
+    {
+        $fieldString = '';
+        $values = [];
+        foreach ($fields as $field => $value) {
+            $fieldString .= ' ' . $field . ' = ?,';
+            $values[] = $value;
+        }
+        $fieldString = rtrim($fieldString, ',');
+        // $valueString = rtrim($valueString);
+        $sql = "UPDATE {$table} SET {$fieldString} WHERE id  = {$id}";
+        if (!$this->query($sql, $values)->error()) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
+
+    public function delete($table, $id)
+    {
+        $sql = "DELETE FROM {$table} WHERE id = {$id}";
+        if (!$this->query($sql)->error()) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public function error()
+    {
         return $this->_error;
     }
 }
-
