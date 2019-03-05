@@ -17,8 +17,9 @@ class Home extends Controller{
             'password' => 'pass55'
             
         ];
-        $deleted = $db->update('users',5,$fields);
-        // debugPrint($users);
+        // $deleted = $db->update('users',5,$fields);
+        $columns = $db->get_columns('users');
+        debugPrint($columns);
         $this->view->render('home/index');
     }
 }

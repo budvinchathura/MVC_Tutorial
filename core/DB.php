@@ -103,6 +103,22 @@ class DB
         }
     }
 
+    public function result(){
+        return $this->_result;
+    }
+
+    public function count(){
+        return $this->_count;
+    }
+
+    public function lastID(){
+        return $this->_lastInsertID;
+    }
+
+    public function get_columns($table){
+        return $this->query("SHOW COLUMNS FROM {$table}")->result();
+    }
+
 
     public function error()
     {
