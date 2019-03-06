@@ -10,16 +10,14 @@ class Home extends Controller{
     {
         // die('Welcome to home controller, this is the indexAction');
         $db = DB::getInstance();
-        $fields = [
-            'first_name' => 'aaay',
-            'last_name' => 'bbbx',
-            'email' => 'abc@abcd.com',
-            'password' => 'pass55'
-            
-        ];
-        // $deleted = $db->update('users',5,$fields);
-        $columns = $db->get_columns('users');
-        debugPrint($columns);
+        $users = $db->find('users',[
+             'conditions'=>['last_name = ?', 'first_name=?'],
+            'bind' => ['bbb','aaa'],
+            'order'=>"first_name, last_name",
+            'limit'=>5
+          ]);
+        
+        debugPrint($users);
         $this->view->render('home/index');
     }
 }
