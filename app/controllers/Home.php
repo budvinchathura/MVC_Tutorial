@@ -8,7 +8,7 @@ class Home extends Controller{
 
     public function indexAction($name=null)
     {
-        
+        debugPrint($_SESSION);
         $this->view->render('home/index');
     }
 }

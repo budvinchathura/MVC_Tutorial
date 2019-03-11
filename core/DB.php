@@ -51,60 +51,63 @@ class DB
         return $this;
     }
 
-    protected function _read($table, $params=[]){
-        $conditionString='';
-        $bind =[];
-        $order='';
-        $limit='';
+    protected function _read($table, $params = [])
+    {
+        $conditionString = '';
+        $bind = [];
+        $order = '';
+        $limit = '';
 
-        if (isset($params['conditions'])){
-            if(is_array($params['conditions'])){
-                foreach ($params['conditions'] as $condition){
-                    $conditionString.=' ' . $condition . ' AND';
+        if (isset($params['conditions'])) {
+            if (is_array($params['conditions'])) {
+                foreach ($params['conditions'] as $condition) {
+                    $conditionString .= ' ' . $condition . ' AND';
                 }
 
                 $conditionString = trim($conditionString);
                 $conditionString = rtrim($conditionString, ' AND');
-            }else{
+            } else {
                 $conditionString = $params['conditions'];
             }
 
-            if($conditionString!=''){
+            if ($conditionString != '') {
                 $conditionString = ' WHERE ' . $conditionString;
             }
         }
 
-        if(array_key_exists('bind',$params)){
+        if (array_key_exists('bind', $params)) {
             $bind = $params['bind'];
         }
 
-        if(array_key_exists('order',$params)){
-            $order = ' ORDER BY '. $params['order'];
+        if (array_key_exists('order', $params)) {
+            $order = ' ORDER BY ' . $params['order'];
         }
 
-        if(array_key_exists('limit',$params)){
-            $limit= ' LIMIT '. $params['limit'];
+        if (array_key_exists('limit', $params)) {
+            $limit = ' LIMIT ' . $params['limit'];
         }
 
-    $sql = "SELECT * FROM {$table} {$conditionString} {$order} {$limit}";
+        $sql = "SELECT * FROM {$table} {$conditionString} {$order} {$limit}";
 
-    if($this->query($sql,$bind)){
-        if(!count($this->_result)) return false;
-        return true;
+        if ($this->query($sql, $bind)) {
+            if (!count($this->_result)) return false;
+            return true;
+        }
+        return false;
     }
 
-    }
-
-    public function find($table, $params=[]){
-        if($this->_read($table, $params)){
+    public function find($table, $params = [])
+    {
+        if ($this->_read($table, $params)) {
             return $this->_result;
         }
         return false;
     }
 
-    public function findFirst($table,$params=[]){
-        if($this->_read($table, $params)){
-            return $this->_result;
+    public function findFirst($table, $params = [])
+    {
+        if ($this->_read($table, $params)) {
+            return $this->_result[0];
         }
         return false;
     }
@@ -161,19 +164,23 @@ class DB
         }
     }
 
-    public function result(){
+    public function result()
+    {
         return $this->_result;
     }
 
-    public function count(){
+    public function count()
+    {
         return $this->_count;
     }
 
-    public function lastID(){
+    public function lastID()
+    {
         return $this->_lastInsertID;
     }
 
-    public function get_columns($table){
+    public function get_columns($table)
+    {
         return $this->query("SHOW COLUMNS FROM {$table}")->result();
     }
 

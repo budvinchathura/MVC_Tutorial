@@ -2,6 +2,7 @@
 
 class Model{
     protected $_db,  $_table, $_modelName, $_softDelete=false, $_columnNames=[];
+    public $id;
 
     public function __construct($table)
     {
@@ -14,7 +15,6 @@ class Model{
 
     protected function _setTableColumns(){
         $columns = $this->getColumns();
-
         foreach ($columns as $column){
             $columnName = $column->Field;
             $this->_columnNames[]=$column->Field;
@@ -41,7 +41,9 @@ class Model{
     public function findFirst($params=[]){
         $resultsQuery = $this->_db->findFirst($this->_table,$params);
         $result = new $this->_modelName($this->_table);
-        $result->populateObjData($resultsQuery);
+        if($resultsQuery){
+            $result->populateObjData($resultsQuery);
+        }
         return $result;
     }
 
@@ -53,7 +55,7 @@ class Model{
         return $this->findFirst(['conditions'=>"email = ?",'bind'=>[$email]]);
     }
 
-    protected function populateObjData($result){
+    public function populateObjData($result){
         foreach($result as $key=>$value){
             $this->$key = $value;
         }
@@ -99,7 +101,7 @@ class Model{
     public function data(){
         $data = new stdClass();
         foreach($this->_columnNames as $column){
-            $data->column = $this->column;
+            $data->column = $column;
         }
         return $data;
     }

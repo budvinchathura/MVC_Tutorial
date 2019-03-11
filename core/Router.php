@@ -25,7 +25,8 @@
 
         public static function redirect($location){
             if(! headers_sent()){
-                header('Location : '.SROOT.$location);
+                // debugPrint('Location: localhost'.SROOT.$location);
+                header('Location: '.SROOT.$location);
                 exit();                
             }else{
                 echo '<script type="text/javascript">';

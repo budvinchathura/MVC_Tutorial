@@ -14,10 +14,11 @@ class Register extends Controller{
 
             $validation = true;
             if($validation){
+                // debugPrint($this->UsersModel);
                 $user = $this->UsersModel->findByEmail($_POST['email']);
-                
                 if($user && password_verify(Input::get('password'),$user->password)){
                     $remember = (isset($_POST['rememberme']) && Input::get('rememberme')) ? true : false;
+                    
                     $user->login($remember);
                     Router::redirect('');
                 }
