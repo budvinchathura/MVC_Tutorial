@@ -17,3 +17,8 @@ define('DEFAULT_LAYOUT','default');
 define('SROOT','/MVC_Tutorial/'); //server root
 
 define('SITE_TITLE','my first mvc framework');
+
+define('CURRENT_USER_SESSION_NAME' , 'jkwedoUJHgjhvhGVHGctc'); //session name for logged in user
+
+define('REMEMBER_ME_COOKIE_NAME','hFX5bnv65GFGghgcgg654rgfcG'); //cookie name for logged in user
+define('REMEMBER_ME_COOKIE_EXPIRY',604800); //time in seconds for remember me cookie to live (30 days);
