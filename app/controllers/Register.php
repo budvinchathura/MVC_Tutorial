@@ -4,12 +4,25 @@ class Register extends Controller{
 
     public function __construct($controller, $action){
         parent::__construct($controller,$action);
-        $this->load_model('Users');
+        $this->loadModel('Users');
         $this->view->setLayout('default');
     }
 
     public function loginAction(){
-        echo password_hash('password',PASSWORD_DEFAULT);
+        if($_POST){
+            //form validation
+
+            $validation = true;
+            if($validation){
+                $user = $this->UsersModel->findByEmail($_POST['email']);
+                
+                if($user && password_verify($_POST['password'],$user->password)){
+                    $remember = (isset($_POST['rememberme']) && $_POST['rememberme']) ? true : false;
+                    $user->login($remember);
+                    Router::redirect('');
+                }
+            }
+        }
         $this->view->render('register/login');
     }
 }

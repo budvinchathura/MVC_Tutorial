@@ -13,9 +13,12 @@ class Users extends Model{
         $this->_cookieName = REMEMBER_ME_COOKIE_NAME;
         $this->_softDelete = true;
 
+        //$user represents the email of the user
         if($user !=''){
-            if(is_int($user)){
-                $u = $this->_db->findFirst('users',['conditions'=>'id = ?','bind'=>[$user]]);
+            $u = null;
+            // debugPrint($user);
+            if (filter_var($user, FILTER_VALIDATE_EMAIL)){
+                $u = $this->_db->findFirst('users',['conditions'=>'email = ?','bind'=>[$user]]);
             } else{
                 
             }

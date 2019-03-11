@@ -22,4 +22,10 @@
                 debugPrint('Method does not exist in the controller'.$controller_name);
             }
         }
+
+        public static function redirect($location){
+            if(! headers_sent()){
+                
+            }
+        }
     }

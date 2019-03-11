@@ -16,6 +16,7 @@ class Model{
         $columns = $this->getColumns();
 
         foreach ($columns as $column){
+            $columnName = $column->Field;
             $this->_columnNames[]=$column->Field;
             $this->{$columnName}=null;
         }
@@ -39,13 +40,17 @@ class Model{
 
     public function findFirst($params=[]){
         $resultsQuery = $this->_db->findFirst($this->_table,$params);
-        $result = new $this->_modelName($this->table);
+        $result = new $this->_modelName($this->_table);
         $result->populateObjData($resultsQuery);
         return $result;
     }
 
     public function findByID($id){
         return $this->findFirst(['conditions'=>"id = ?",'bind'=>[$id]]);
+    }
+
+    public function findByEmail($email){
+        return $this->findFirst(['conditions'=>"email = ?",'bind'=>[$email]]);
     }
 
     protected function populateObjData($result){
