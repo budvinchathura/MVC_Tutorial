@@ -9,10 +9,20 @@ class Register extends Controller{
     }
 
     public function loginAction(){
+        $validation = new Validate();
         if($_POST){
             //form validation
 
-            $validation = true;
+            $validation ->check($_POST,[
+                'email'=>[
+                    'display'=>'Email',
+                    'required'=>true
+                ],
+                'password'=>[
+                    'display'=>'Password',
+                    'required'=>true
+                ]
+            ]);
             if($validation){
                 // debugPrint($this->UsersModel);
                 $user = $this->UsersModel->findByEmail($_POST['email']);
