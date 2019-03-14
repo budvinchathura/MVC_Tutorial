@@ -21,6 +21,7 @@
 <div class="login-clean">
     <form method="post">
         <h2 class="sr-only">Login Form</h2>
+        <div class="bg-warning"><?=$this->displayErrors ?></div>
         <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
         <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
         <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>

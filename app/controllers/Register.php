@@ -34,6 +34,7 @@ class Register extends Controller{
                 }
             }
         }
+        $this->view->displayErrors = $validation->displayErrors();
         $this->view->render('register/login');
     }
 }

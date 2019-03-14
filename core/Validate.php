@@ -89,4 +89,23 @@ class Validate
             $this->_passed = false;
         }
     }
+
+    public function errors(){
+        return $this->_errors;
+    }
+
+    public function passed(){
+        return $this->_passed;
+    }
+
+    public function displayErrors(){
+        $html = '<ul>';
+
+        foreach ($this->_errors as $error){
+            $html .= '<li>'.$error[0].'</li>';
+            // $html .= '<script>jQuery("document").ready(function(){jQuery("input[name=tcol1]
+        }
+        $html .= '</ul>';
+        return $html;
+    }
 }
