@@ -75,6 +75,10 @@ class Validate
                 }
             }
         }
+        if(empty($this->_errors)){
+            $this->_passed=true;
+            return $this;
+        }
     }
 
 
@@ -90,20 +94,27 @@ class Validate
         }
     }
 
-    public function errors(){
+    public function errors()
+    {
         return $this->_errors;
     }
 
-    public function passed(){
+    public function passed()
+    {
         return $this->_passed;
     }
 
-    public function displayErrors(){
+    public function displayErrors()
+    {
         $html = '<ul>';
 
-        foreach ($this->_errors as $error){
-            $html .= '<li>'.$error[0].'</li>';
-            // $html .= '<script>jQuery("document").ready(function(){jQuery("input[name=tcol1]
+        foreach ($this->_errors as $error) {
+            if (is_array($error)) {
+                $html .= '<li>' . $error[0] . '</li>';
+            } else {
+                $html .= '<li>' . $error . '</li>';
+                // $html .= '<script>jQuery("document").ready(function(){jQuery("input[name=tcol1]
+            }
         }
         $html .= '</ul>';
         return $html;

@@ -14,6 +14,7 @@ class Controller extends Application{
     public function loadModel($model){
         if(class_exists($model)){
             $this->{$model.'Model'} = new $model(strtolower($model));
+            
         } else{
             debugPrint('model does not exist !!!');
         }

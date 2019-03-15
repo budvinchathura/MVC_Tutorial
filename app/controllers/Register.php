@@ -20,10 +20,11 @@ class Register extends Controller{
                 ],
                 'password'=>[
                     'display'=>'Password',
-                    'required'=>true
+                    'required'=>true,
+                    'min'=>6
                 ]
             ]);
-            if($validation){
+            if($validation->passed()){
                 // debugPrint($this->UsersModel);
                 $user = $this->UsersModel->findByEmail($_POST['email']);
                 if($user && password_verify(Input::get('password'),$user->password)){
@@ -31,6 +32,9 @@ class Register extends Controller{
                     
                     $user->login($remember);
                     Router::redirect('');
+                }
+                else{
+                    $validation->addError("There is an error with your username or password");
                 }
             }
         }
