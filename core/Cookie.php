@@ -3,7 +3,7 @@
 class Cookie{
 
     public static function set($name,$value,$expiry){
-        if(setcookie($name,$value,time()+$expiry,'/')){
+        if(setcookie($name,$value,(int)time()+(int)$expiry,'/')){
             return true;
         }
         return false;
@@ -11,7 +11,8 @@ class Cookie{
     }
 
     public static function delete($name){
-        self::set($name,'',time()-1);
+        self::set($name,null,-10);
+        debugPrint('cookie deleted');
     }
 
     public static function get($name){
