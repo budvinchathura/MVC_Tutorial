@@ -44,6 +44,21 @@ class Users extends Model
         }
     }
 
+
+    public static function loginUserFromCookie(){
+        $userSessionModel = new UserSessions();
+        $userSession = $userSessionModel->findFirst([
+            'conditions'=>"session = ?",
+            'bind' => [Cookie::get(REMEMBER_ME_COOKIE_NAME)]
+        ]);
+        if($userSession->email !=''){
+            $user = new self($userSession->email);
+        }
+        $user->login();
+        return self::$currentLoggedInUser;
+    }
+
+
     public static function currentLoggedInUser()
     {
         if (!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)) {

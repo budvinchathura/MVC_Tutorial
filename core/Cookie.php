@@ -12,7 +12,6 @@ class Cookie{
 
     public static function delete($name){
         self::set($name,null,-10);
-        debugPrint('cookie deleted');
     }
 
     public static function get($name){
