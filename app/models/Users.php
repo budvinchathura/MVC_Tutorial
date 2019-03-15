@@ -46,16 +46,15 @@ class Users extends Model
 
 
     public static function loginUserFromCookie(){
-        $userSessionModel = new UserSessions();
-        $userSession = $userSessionModel->findFirst([
-            'conditions'=>"session = ?",
-            'bind' => [Cookie::get(REMEMBER_ME_COOKIE_NAME)]
-        ]);
+        $userSession = UserSessions::getSessionFromCookie();
+        
         if($userSession->email !=''){
             $user = new self($userSession->email);
         }
+        if($user){
         $user->login();
-        return self::$currentLoggedInUser;
+        }
+        return $user;
     }
 
 
@@ -72,6 +71,12 @@ class Users extends Model
     public function logout(){
         $user_agent = Session::uagentNoVersion();
         $this->_db->query("DELETE FROM user_sessions WHERE email = ?", [$this->email]);
+        
+        $userSession = UserSessions::getSessionFromCookie();
+
+        if($userSession){
+            $userSession->delete($);
+        }
         Session::delete(CURRENT_USER_SESSION_NAME);
         if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
             Cookie::delete(REMEMBER_ME_COOKIE_NAME);
