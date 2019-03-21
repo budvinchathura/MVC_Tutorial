@@ -14,11 +14,11 @@ class UserSessions extends Model
         $userSession = new self();
         if (Cookie::exists(REMEMBER_ME_COOKIE_NAME)) {
             $userSession = $userSession->findFirst([
-                'condition' => "session = ?",
+                'conditions' => "session = ?",
                 'bind' => [Cookie::get(REMEMBER_ME_COOKIE_NAME)]
             ]);
         }
-
+        
         if (!$userSession) {
             return false;
         }

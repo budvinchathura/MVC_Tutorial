@@ -75,15 +75,23 @@ class Users extends Model
         
         $userSession = UserSessions::getSessionFromCookie();
 
-        if($userSession){
-            $userSession->delete();
-        }
+        // if($userSession){
+        //     $userSession->delete();
+        // }
         Session::delete(CURRENT_USER_SESSION_NAME);
         if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
             Cookie::delete(REMEMBER_ME_COOKIE_NAME);
         }
         self::$currentLoggedInUser = null;
         return true;
+    }
+
+    public function registerNewUser($params){
+        $this->assign($params);
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        $this->deleted =0;
+        $this->save();
+
     }
 }
 

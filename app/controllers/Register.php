@@ -50,7 +50,41 @@ class Register extends Controller{
         Router::redirect('register/login');
     }
 
-    public function registerActions(){
-        
+    public function registerAction(){
+        $validation  = new Validate();
+        $postedValues = ['fname'=>'','lname'=>'','email'=>'','password'=>'','password2'=>''];
+        if($_POST){
+            $postedValues = postedValues($_POST);
+            $validation->check($postedValues,
+            ['fname'=>[
+                'display'=>'First Name',
+                'required'=>true
+            ],'lname'=>[
+                'display'=>'Last Name',
+                'required'=>true
+            ],'email'=>[
+                'display'=>'Email',
+                'required'=>true,
+                'unique'=>'users'
+            ],'password'=>[
+                'display'=>'Password',
+                'required'=>true,
+                'min'=>6
+            ],'password2'=>[
+                'display'=>'Confirm Password',
+                'required'=>true,
+                'matches'=>'password'
+            ]]);
+
+            if($validation->passed()){
+                $newUser = new Users();
+                $newUser->registerNewUser($postedValues);
+                $newUser->login();
+                Router::redirect('');
+            }
+        }
+        $this->view->post = $postedValues;
+        $this->view->displayErrors = $validation->displayErrors();
+        $this->view->render('register/register');
     }
 }

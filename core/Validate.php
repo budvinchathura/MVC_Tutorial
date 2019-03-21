@@ -35,14 +35,14 @@ class Validate
                             break;
 
                         case 'matches':
-                            if ($value != $source($ruleValue)) {
+                            if ($value != $source[$ruleValue]) {
                                 $matchDisplay = $items[$ruleValue]['display'];
                                 $this->addError(["{$matchDisplay} and {$display} must match.", $item]);
                             }
                             break;
 
                         case 'unique':
-                            $check = $this->_db->query(["SELECT {$item} FROM {$ruleValue} WHERE {$item} = ?", $value]);
+                            $check = $this->_db->query("SELECT {$item} FROM {$ruleValue} WHERE {$item} = ?", [$value]);
                             if ($check->count()) {
                                 $this->addError(["{$display} already exists. Please choose another {$display}", $item]);
                             }

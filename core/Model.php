@@ -40,10 +40,12 @@ class Model{
 
     public function findFirst($params=[]){
         $resultsQuery = $this->_db->findFirst($this->_table,$params);
+        
         $result = new $this->_modelName($this->_table);
         if($resultsQuery){
             $result->populateObjData($resultsQuery);
         }
+        
         return $result;
     }
 

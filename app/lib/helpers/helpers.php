@@ -14,3 +14,11 @@ function sanitize($dirty){
 function currentUser(){
     return Users::currentLoggedInUser();
 }
+
+function postedValues($post){
+    $array=[];
+    foreach($post as $key=> $value){
+        $array[$key] = sanitize($value);
+    }
+    return $array;
+}
