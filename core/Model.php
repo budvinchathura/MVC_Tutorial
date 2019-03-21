@@ -84,7 +84,7 @@ class Model{
         }
     }
 
-    public function delete($id){
+    public function delete($id=''){
         if ($id=='' && $this->_id=='') return false;
 
         $id= ($id=='')? $this->id:$id;

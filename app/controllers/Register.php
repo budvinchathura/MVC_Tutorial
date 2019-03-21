@@ -49,4 +49,8 @@ class Register extends Controller{
         }
         Router::redirect('register/login');
     }
+
+    public function registerActions(){
+        
+    }
 }

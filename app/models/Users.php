@@ -47,13 +47,14 @@ class Users extends Model
 
     public static function loginUserFromCookie(){
         $userSession = UserSessions::getSessionFromCookie();
-        
+        $user=null;
         if($userSession->email !=''){
             $user = new self($userSession->email);
         }
         if($user){
         $user->login();
         }
+        
         return $user;
     }
 
@@ -75,7 +76,7 @@ class Users extends Model
         $userSession = UserSessions::getSessionFromCookie();
 
         if($userSession){
-            $userSession->delete($);
+            $userSession->delete();
         }
         Session::delete(CURRENT_USER_SESSION_NAME);
         if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
