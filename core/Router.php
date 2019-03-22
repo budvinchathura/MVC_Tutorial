@@ -12,6 +12,12 @@
             $action_name = $action;
             array_shift($url);
 
+            //acl check
+            $grantAccess = self::hasAccess($controller_name,$action_name);
+            if(!$grantAccess){
+                $controller_name = $controller = ACCESS_RESTRICTED;
+                $action_name = $action = 'indexAction';
+            }
             //params
             $queryParams = $url;
             $dispatch = new $controller($controller_name, $action);
@@ -37,5 +43,12 @@
                 echo '</noscript>';
                 exit();
             }
+        }
+
+        public static function hasAccess($controller_name,$action_name='index'){
+            $aclFile = file_get_contents(ROOT.DS.'app'.DS.'acl.json');
+            $acl = json_decode($aclFile,true);
+            debugPrint($acl);
+            return false;
         }
     }

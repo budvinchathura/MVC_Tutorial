@@ -22,3 +22,5 @@ define('CURRENT_USER_SESSION_NAME' , 'jkwedoUJHgjhvhGVHGctc'); //session name fo
 
 define('REMEMBER_ME_COOKIE_NAME','hFX5bnv65GFGghgcgg654rgfcG'); //cookie name for logged in user
 define('REMEMBER_ME_COOKIE_EXPIRY',604800); //time in seconds for remember me cookie to live (30 days);
+
+define('ACCESS_RESTRICTED','Restricted'); //controller for restricted redirect
